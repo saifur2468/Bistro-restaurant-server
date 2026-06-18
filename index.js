@@ -24,7 +24,7 @@ const client = new MongoClient(uri, {
 async function run() {
   try {
     // Connect the client to the server
-    await client.connect();
+    // await client.connect();
 
     const db = client.db("bistroresturanent");
     const menuCollection = db.collection("Menu");
@@ -34,7 +34,7 @@ async function run() {
     const paymentCollection = db.collection("Payments");
     const bookingCollection = db.collection("Bookings");
 
-  
+
 
     app.post('/users', async (req, res) => {
       const user = req.body;
@@ -78,7 +78,7 @@ async function run() {
       res.send(result);
     });
 
-   
+
 
     app.get('/menu', async (req, res) => {
       const result = await menuCollection.find().toArray();
@@ -98,7 +98,7 @@ async function run() {
       res.send(result);
     });
 
-   
+
 
     app.get('/cart', async (req, res) => {
       const email = req.query.email;
@@ -120,7 +120,7 @@ async function run() {
       res.send(result);
     });
 
-    
+
 
     // app.post('/payments', async (req, res) => {
     //   const payment = req.body;
@@ -140,24 +140,24 @@ async function run() {
 
 
     app.post('/Payments', async (req, res) => {
-  try {
-    const payment = req.body;
+      try {
+        const payment = req.body;
 
-    // insert payment
-    const result = await paymentCollection.insertOne(payment);
+        // insert payment
+        const result = await paymentCollection.insertOne(payment);
 
-    // cart clear (VERY IMPORTANT)
-    if (payment.email) {
-      await cartCollection.deleteMany({ email: payment.email });
-    }
+        // cart clear (VERY IMPORTANT)
+        if (payment.email) {
+          await cartCollection.deleteMany({ email: payment.email });
+        }
 
-    res.send(result);
+        res.send(result);
 
-  } catch (error) {
-    console.error(error);
-    res.status(500).send({ error: "Payment failed" });
-  }
-});
+      } catch (error) {
+        console.error(error);
+        res.status(500).send({ error: "Payment failed" });
+      }
+    });
 
     app.get('/Payments/:email', async (req, res) => {
       const query = { email: req.params.email };
@@ -165,7 +165,7 @@ async function run() {
       res.send(result);
     });
 
- 
+
     app.post('/reviews', async (req, res) => {
       const review = req.body;
       const result = await reviewsCollection.insertOne(review);
@@ -213,7 +213,7 @@ async function run() {
       res.send(result);
     });
 
-  
+
 
     app.get('/user-stats/:email', async (req, res) => {
       const email = req.params.email;
