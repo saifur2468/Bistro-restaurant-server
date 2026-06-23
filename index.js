@@ -11,7 +11,13 @@ app.use(cors());
 app.use(express.json());
 
 // MongoDB Connection String
-const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.xclxgx7.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`;
+
+
+const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.xclxgx7.mongodb.net/?appName=Cluster0`;
+
+
+
+
 
 const client = new MongoClient(uri, {
   serverApi: {
@@ -290,8 +296,8 @@ app.get('/', (req, res) => {
   res.send('Bistro Boss Server is running...');
 });
 
-// app.listen(port, () => {
-//   console.log(`Server is running on port ${port}`);
-// });
+app.listen(port, () => {
+  console.log(`Server is running on port ${port}`);
+});
 
 module.exports = app;
